@@ -1,129 +1,121 @@
--- LocalScript for Dynamic Console with Categorized Commands
+-- Ensure HttpService is enabled
+local HttpService = game:GetService("HttpService")
 
-local player = game.Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
+-- Create the main UI frame
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
--- Create the base ScreenGui
-local consoleGui = Instance.new("ScreenGui")
-consoleGui.Parent = playerGui
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 300, 0, 500)
+mainFrame.Position = UDim2.new(0.5, -150, 0.5, -250)
+mainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+mainFrame.BackgroundTransparency = 0.5
+mainFrame.Parent = ScreenGui
+mainFrame.Draggable = true
 
--- Create the main frame that will hold everything
-local baseFrame = Instance.new("Frame")
-baseFrame.Size = UDim2.new(0, 400, 0, 300)
-baseFrame.Position = UDim2.new(0.5, -200, 0.5, -150)
-baseFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-baseFrame.Parent = consoleGui
+-- Add UI corner to the frame
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 10)
+uiCorner.Parent = mainFrame
 
--- Create a ScrollingFrame for categories (Commands like Fly, Speed, etc.)
-local categoriesFrame = Instance.new("ScrollingFrame")
-categoriesFrame.Size = UDim2.new(0, 120, 1, 0)
-categoriesFrame.Position = UDim2.new(0, 0, 0, 0)
-categoriesFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-categoriesFrame.ScrollingEnabled = true
-categoriesFrame.Parent = baseFrame
+-- Create the version label at the top
+local versionLabel = Instance.new("TextLabel")
+versionLabel.Size = UDim2.new(1, 0, 0, 50)
+versionLabel.Position = UDim2.new(0, 0, 0, 0)
+versionLabel.Text = "Astro Console V1.0"
+versionLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+versionLabel.TextSize = 20
+versionLabel.BackgroundTransparency = 1
+versionLabel.Parent = mainFrame
 
--- Create a Frame for content (commands and player list)
-local categoryContentFrame = Instance.new("Frame")
-categoryContentFrame.Size = UDim2.new(0, 280, 1, 0)
-categoryContentFrame.Position = UDim2.new(0, 120, 0, 0)
-categoryContentFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-categoryContentFrame.Parent = baseFrame
-local function openKickPlayerUI()
-    -- Create a list of player buttons
-    local kickUIFrame = Instance.new("Frame")
-    kickUIFrame.Size = UDim2.new(0, 250, 0, 200)
-    kickUIFrame.Position = UDim2.new(0.5, -125, 0.5, -100)
-    kickUIFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    kickUIFrame.Parent = consoleGui
+-- Create the Fly button
+local flyButton = Instance.new("TextButton")
+flyButton.Size = UDim2.new(0, 280, 0, 50)
+flyButton.Position = UDim2.new(0, 10, 0, 70)
+flyButton.Text = "Fly"
+flyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+flyButton.TextSize = 18
+flyButton.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+flyButton.Parent = mainFrame
 
-    local playerListLayout = Instance.new("UIListLayout")
-    playerListLayout.Parent = kickUIFrame
+-- Create the Speed button
+local speedButton = Instance.new("TextButton")
+speedButton.Size = UDim2.new(0, 280, 0, 50)
+speedButton.Position = UDim2.new(0, 10, 0, 130)
+speedButton.Text = "Speed"
+speedButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+speedButton.TextSize = 18
+speedButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+speedButton.Parent = mainFrame
 
-    -- Create buttons for each player in the game
-    for _, p in pairs(game.Players:GetPlayers()) do
-        if p ~= player then  -- Skip the local player
-            local playerButton = Instance.new("TextButton")
-            playerButton.Size = UDim2.new(0, 200, 0, 30)
-            playerButton.Text = p.Name
-            playerButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-            playerButton.Parent = kickUIFrame
+-- Create the JumpPower button
+local jumpPowerButton = Instance.new("TextButton")
+jumpPowerButton.Size = UDim2.new(0, 280, 0, 50)
+jumpPowerButton.Position = UDim2.new(0, 10, 0, 190)
+jumpPowerButton.Text = "JumpPower"
+jumpPowerButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+jumpPowerButton.TextSize = 18
+jumpPowerButton.BackgroundColor3 = Color3.fromRGB(255, 255, 0)
+jumpPowerButton.Parent = mainFrame
 
-            -- When a player button is clicked, kick that player
-            playerButton.MouseButton1Click:Connect(function()
-                p:Kick("You have been kicked from the game.")
-                print(p.Name .. " has been kicked.")
-                kickUIFrame:Destroy()  -- Close the UI
-            end)
-        end
+-- Create the Kick button
+local kickButton = Instance.new("TextButton")
+kickButton.Size = UDim2.new(0, 280, 0, 50)
+kickButton.Position = UDim2.new(0, 10, 0, 250)
+kickButton.Text = "Kick Player"
+kickButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+kickButton.TextSize = 18
+kickButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+kickButton.Parent = mainFrame
+
+-- Add functionality for the buttons
+
+-- Fly functionality (just a placeholder for actual flying script)
+flyButton.MouseButton1Click:Connect(function()
+    print("Fly functionality activated")
+    -- Add actual fly code here
+end)
+
+-- Speed functionality (just a placeholder for actual speed script)
+speedButton.MouseButton1Click:Connect(function()
+    print("Speed functionality activated")
+    -- Add actual speed code here
+end)
+
+-- JumpPower functionality (just a placeholder for actual jump power script)
+jumpPowerButton.MouseButton1Click:Connect(function()
+    print("JumpPower functionality activated")
+    -- Add actual jump power code here
+end)
+
+-- Kick Player functionality
+kickButton.MouseButton1Click:Connect(function()
+    local players = game.Players:GetPlayers()
+    local playerToKick = nil
+
+    -- Create a simple menu of players to choose from
+    local playerMenu = Instance.new("Frame")
+    playerMenu.Size = UDim2.new(0, 200, 0, 300)
+    playerMenu.Position = UDim2.new(0.5, -100, 0.5, -150)
+    playerMenu.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    playerMenu.BackgroundTransparency = 0.5
+    playerMenu.Parent = ScreenGui
+
+    -- Add a list of players to the menu
+    for i, player in ipairs(players) do
+        local playerButton = Instance.new("TextButton")
+        playerButton.Size = UDim2.new(1, 0, 0, 40)
+        playerButton.Position = UDim2.new(0, 0, 0, (i - 1) * 40)
+        playerButton.Text = player.Name
+        playerButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        playerButton.TextSize = 16
+        playerButton.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+        playerButton.Parent = playerMenu
+
+        -- When a player is selected, kick them
+        playerButton.MouseButton1Click:Connect(function()
+            player:Kick("You have been kicked by Astro Console.")
+            playerMenu:Destroy()  -- Close the player selection menu
+        end)
     end
-end
--- Commands for different categories
-local commandCategories = {
-    MovementCommands = {
-        {Name = "Fly", Action = function()
-            -- Enable fly mode (you can extend this)
-            print("Fly command activated")
-        end},
-        {Name = "Speed", Action = function()
-            -- Set speed
-            player.Character:WaitForChild("Humanoid").WalkSpeed = 50
-            print("Speed set to 50")
-        end},
-        {Name = "JumpPower", Action = function()
-            -- Set jump power
-            player.Character:WaitForChild("Humanoid").JumpPower = 100
-            print("JumpPower set to 100")
-        end}
-    },
-    
-    PlayerActions = {
-        {Name = "Kick Player", Action = function()
-            -- Open player selection UI for kicking
-            openKickPlayerUI()
-        end}
-    }
-}
-
--- Create category buttons dynamically
-local function createCategoryButton(categoryName, index)
-    local button = Instance.new("TextButton")
-    button.Size = UDim2.new(0, 100, 0, 50)
-    button.Position = UDim2.new(0, 0, 0, (index - 1) * 60)
-    button.Text = categoryName
-    button.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-    button.Parent = categoriesFrame
-
-    -- When category button is clicked, update the content area with the commands of the category
-    button.MouseButton1Click:Connect(function()
-        -- Clear previous buttons
-        for _, child in pairs(categoryContentFrame:GetChildren()) do
-            if child:IsA("TextButton") then
-                child:Destroy()
-            end
-        end
-
-        -- Add command buttons for the selected category
-        for _, command in pairs(commandCategories[categoryName]) do
-            local commandButton = Instance.new("TextButton")
-            commandButton.Size = UDim2.new(0, 200, 0, 40)
-            commandButton.Position = UDim2.new(0, 20, 0, #categoryContentFrame:GetChildren() * 50)
-            commandButton.Text = command.Name
-            commandButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-            commandButton.Parent = categoryContentFrame
-
-            commandButton.MouseButton1Click:Connect(function()
-                command.Action()
-            end)
-        end
-    end)
-end
-
--- Create category buttons dynamically for all categories
-local categoryIndex = 1
-for category, _ in pairs(commandCategories) do
-    createCategoryButton(category, categoryIndex)
-    categoryIndex = categoryIndex + 1
-end
-
--- Player selection UI for kicking players
-
+end)
