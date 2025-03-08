@@ -1,182 +1,161 @@
 -- Services
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+-- Ensure HttpService is enabled
+local HttpService = game:GetService("HttpService")
 
--- Create ScreenGui
+-- Create the main UI frame
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Parent = PlayerGui
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
--- Main Frame
-local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 500, 0, 300)
-MainFrame.Position = UDim2.new(0.5, -250, 0.5, -150)
-MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-MainFrame.BorderSizePixel = 0
-MainFrame.Parent = ScreenGui
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 300, 0, 500)
+mainFrame.Position = UDim2.new(0.5, -150, 0.5, -250)
+mainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+mainFrame.BorderSizePixel = 2
+mainFrame.BorderColor3 = Color3.fromRGB(255, 0, 0)
+mainFrame.Parent = ScreenGui
+mainFrame.Draggable = true
+mainFrame.Active = true
 
--- UI Corner (Rounded edges)
-local UICorner = Instance.new("UICorner")
-UICorner.CornerRadius = UDim.new(0, 6)
-UICorner.Parent = MainFrame
+-- UI Corner
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 10)
+uiCorner.Parent = mainFrame
 
--- UI Stroke (Red Outline)
-local UIStroke = Instance.new("UIStroke")
-UIStroke.Parent = MainFrame
-UIStroke.Color = Color3.fromRGB(180, 0, 0)
-UIStroke.Thickness = 2
+-- Create the title bar
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(1, 0, 0, 30)
+titleLabel.Position = UDim2.new(0, 0, 0, 0)
+titleLabel.Text = "Astro Console V1.0"
+titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.TextSize = 18
+titleLabel.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+titleLabel.Parent = mainFrame
 
--- Top Bar (Title & Dragging)
-local TopBar = Instance.new("Frame")
-TopBar.Size = UDim2.new(1, 0, 0, 30)
-TopBar.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-TopBar.Parent = MainFrame
+-- Speed Input
+local speedLabel = Instance.new("TextLabel")
+speedLabel.Size = UDim2.new(0, 100, 0, 30)
+speedLabel.Position = UDim2.new(0, 10, 0, 50)
+speedLabel.Text = "Speed:"
+speedLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+speedLabel.TextSize = 18
+speedLabel.BackgroundTransparency = 1
+speedLabel.Parent = mainFrame
 
--- Title Text
-local Title = Instance.new("TextLabel")
-Title.Size = UDim2.new(1, -30, 1, 0)
-Title.Position = UDim2.new(0, 5, 0, 0)
-Title.Text = "AstroConsole"
-Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.TextSize = 18
-Title.TextXAlignment = Enum.TextXAlignment.Left
-Title.BackgroundTransparency = 1
-Title.Parent = TopBar
+local speedInput = Instance.new("TextBox")
+speedInput.Size = UDim2.new(0, 80, 0, 30)
+speedInput.Position = UDim2.new(0, 120, 0, 50)
+speedInput.PlaceholderText = "16"
+speedInput.TextColor3 = Color3.fromRGB(0, 255, 0)
+speedInput.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+speedInput.Parent = mainFrame
 
--- Close Button (X Button)
-local CloseButton = Instance.new("TextButton")
-CloseButton.Size = UDim2.new(0, 30, 1, 0)
-CloseButton.Position = UDim2.new(1, -30, 0, 0)
-CloseButton.Text = "X"
-CloseButton.TextColor3 = Color3.fromRGB(255, 0, 0)
-CloseButton.TextSize = 16
-CloseButton.BackgroundTransparency = 1
-CloseButton.Parent = TopBar
+local speedButton = Instance.new("TextButton")
+speedButton.Size = UDim2.new(0, 80, 0, 30)
+speedButton.Position = UDim2.new(0, 210, 0, 50)
+speedButton.Text = "Set"
+speedButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+speedButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+speedButton.Parent = mainFrame
 
--- Close Button Functionality
-CloseButton.MouseButton1Click:Connect(function()
-    ScreenGui:Destroy()
+-- JumpPower Input
+local jumpLabel = Instance.new("TextLabel")
+jumpLabel.Size = UDim2.new(0, 100, 0, 30)
+jumpLabel.Position = UDim2.new(0, 10, 0, 90)
+jumpLabel.Text = "JumpPower:"
+jumpLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+jumpLabel.TextSize = 18
+jumpLabel.BackgroundTransparency = 1
+jumpLabel.Parent = mainFrame
+
+local jumpInput = Instance.new("TextBox")
+jumpInput.Size = UDim2.new(0, 80, 0, 30)
+jumpInput.Position = UDim2.new(0, 120, 0, 90)
+jumpInput.PlaceholderText = "50"
+jumpInput.TextColor3 = Color3.fromRGB(255, 255, 0)
+jumpInput.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+jumpInput.Parent = mainFrame
+
+local jumpButton = Instance.new("TextButton")
+jumpButton.Size = UDim2.new(0, 80, 0, 30)
+jumpButton.Position = UDim2.new(0, 210, 0, 90)
+jumpButton.Text = "Set"
+jumpButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+jumpButton.BackgroundColor3 = Color3.fromRGB(255, 255, 0)
+jumpButton.Parent = mainFrame
+
+-- Fly Button
+local flyButton = Instance.new("TextButton")
+flyButton.Size = UDim2.new(0, 280, 0, 40)
+flyButton.Position = UDim2.new(0, 10, 0, 130)
+flyButton.Text = "Fly (Toggle)"
+flyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+flyButton.TextSize = 18
+flyButton.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+flyButton.Parent = mainFrame
+
+-- Function to set speed
+speedButton.MouseButton1Click:Connect(function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character
+    if character and character:FindFirstChild("Humanoid") then
+        local newSpeed = tonumber(speedInput.Text) or 16 -- Default speed is 16
+        character.Humanoid.WalkSpeed = newSpeed
+    end
 end)
 
--- Draggable Function
-local dragging
-local dragInput
-local dragStart
-local startPos
+-- Function to set jump power
+jumpButton.MouseButton1Click:Connect(function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character
+    if character and character:FindFirstChild("Humanoid") then
+        local newJump = tonumber(jumpInput.Text) or 50 -- Default jump power is 50
+        character.Humanoid.JumpPower = newJump
+    end
+end)
 
-TopBar.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        dragging = true
-        dragStart = input.Position
-        startPos = MainFrame.Position
+-- Fly function
+local flying = false
+local function fly()
+    local player = game.Players.LocalPlayer
+    local character = player.Character
+    if not character then return end
 
-        input.Changed:Connect(function()
-            if input.UserInputState == Enum.UserInputState.End then
-                dragging = false
+    local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+    if not humanoidRootPart then return end
+
+    local flyVelocity = Instance.new("BodyVelocity")
+    flyVelocity.Velocity = Vector3.new(0, 50, 0) -- Float upward
+    flyVelocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+    flyVelocity.Parent = humanoidRootPart
+
+    local flyGyro = Instance.new("BodyGyro")
+    flyGyro.CFrame = humanoidRootPart.CFrame
+    flyGyro.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+    flyGyro.Parent = humanoidRootPart
+
+    return flyVelocity, flyGyro
+end
+
+-- Fly toggle
+flyButton.MouseButton1Click:Connect(function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character
+    if not character then return end
+
+    local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+    if not humanoidRootPart then return end
+
+    if flying then
+        -- Stop flying
+        for _, obj in pairs(humanoidRootPart:GetChildren()) do
+            if obj:IsA("BodyVelocity") or obj:IsA("BodyGyro") then
+                obj:Destroy()
             end
-        end)
-    end
-end)
-
-TopBar.InputChanged:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseMovement then
-        dragInput = input
-    end
-end)
-
-game:GetService("UserInputService").InputChanged:Connect(function(input)
-    if input == dragInput and dragging then
-        local delta = input.Position - dragStart
-        MainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-    end
-end)
-
--- Sidebar Frame
-local Sidebar = Instance.new("Frame")
-Sidebar.Size = UDim2.new(0, 120, 1, -30)
-Sidebar.Position = UDim2.new(0, 0, 0, 30)
-Sidebar.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-Sidebar.Parent = MainFrame
-
--- Content Frame
-local ContentFrame = Instance.new("Frame")
-ContentFrame.Size = UDim2.new(1, -120, 1, -30)
-ContentFrame.Position = UDim2.new(0, 120, 0, 30)
-ContentFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-ContentFrame.Parent = MainFrame
-
--- Function to Create Sidebar Buttons
-local function createSidebarButton(text, posY)
-    local button = Instance.new("TextButton")
-    button.Size = UDim2.new(1, 0, 0, 30)
-    button.Position = UDim2.new(0, 0, 0, posY)
-    button.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    button.Text = text
-    button.TextColor3 = Color3.fromRGB(255, 255, 255)
-    button.Parent = Sidebar
-    return button
-end
-
--- Sidebar Buttons
-local PlayerButton = createSidebarButton("Player", 0)
-local MiscButton = createSidebarButton("Miscellaneous", 30)
-local FunButton = createSidebarButton("Fun", 60)
-local TeleportsButton = createSidebarButton("Teleports", 90)
-
--- Function to Create Buttons
-local function createButton(text, posY, color)
-    local button = Instance.new("TextButton")
-    button.Size = UDim2.new(0, 280, 0, 40)
-    button.Position = UDim2.new(0.5, -140, 0, posY)
-    button.Text = text
-    button.TextColor3 = Color3.fromRGB(255, 255, 255)
-    button.TextSize = 18
-    button.BackgroundColor3 = color
-    button.Parent = ContentFrame
-    return button
-end
-
--- Create Buttons
-local FlyButton = createButton("Fly", 10, Color3.fromRGB(0, 0, 255))
-local SpeedButton = createButton("Speed", 60, Color3.fromRGB(0, 255, 0))
-local JumpPowerButton = createButton("JumpPower", 110, Color3.fromRGB(255, 255, 0))
-local KickButton = createButton("Kick Player", 160, Color3.fromRGB(255, 0, 0))
-
--- Button Click Functions (Placeholders)
-FlyButton.MouseButton1Click:Connect(function()
-    print("Fly activated")
-end)
-
-SpeedButton.MouseButton1Click:Connect(function()
-    print("Speed activated")
-end)
-
-JumpPowerButton.MouseButton1Click:Connect(function()
-    print("JumpPower activated")
-end)
-
--- Kick Player Functionality
-KickButton.MouseButton1Click:Connect(function()
-    local players = game.Players:GetPlayers()
-    local playerMenu = Instance.new("Frame")
-    playerMenu.Size = UDim2.new(0, 200, 0, 300)
-    playerMenu.Position = UDim2.new(0.5, -100, 0.5, -150)
-    playerMenu.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    playerMenu.BackgroundTransparency = 0.5
-    playerMenu.Parent = ScreenGui
-
-    for i, player in ipairs(players) do
-        local playerButton = Instance.new("TextButton")
-        playerButton.Size = UDim2.new(1, 0, 0, 40)
-        playerButton.Position = UDim2.new(0, 0, 0, (i - 1) * 40)
-        playerButton.Text = player.Name
-        playerButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-        playerButton.BackgroundColor3 = Color3.fromRGB(180, 0, 0)
-        playerButton.Parent = playerMenu
-
-        playerButton.MouseButton1Click:Connect(function()
-            player:Kick("You have been kicked by Astro Console.")
-            playerMenu:Destroy()
-        end)
+        end
+        flying = false
+    else
+        -- Start flying
+        fly()
+        flying = true
     end
 end)
