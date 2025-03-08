@@ -14,17 +14,22 @@ ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
 local mainFrame = Instance.new("Frame")
 mainFrame.Size = UDim2.new(0, 400, 0, 500)
 mainFrame.Position = UDim2.new(0.3, 0, 0.3, 0)
-mainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+mainFrame.BackgroundColor3 = Color3.fromRGB(91, 46, 102)
 mainFrame.Active = true
 mainFrame.Draggable = true
 mainFrame.Parent = ScreenGui
+
+local UIStroke = Instance.new("UIStroke")
+UIStroke.Parent = mainFrame
+UIStroke.Color = Color3.fromRGB(60, 18, 49) -- Red outline
+UIStroke.Thickness = 2
 
 -- Title Bar
 local title = Instance.new("TextLabel")
 title.Size = UDim2.new(1, -40, 0, 40)
 title.Text = "AstroWare V1.0"
-title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+title.TextColor3 = Color3.fromRGB(250, 161, 66)
+title.BackgroundColor3 = Color3.fromRGB(91, 46, 102)
 title.TextSize = 20
 title.Parent = mainFrame
 
@@ -33,15 +38,15 @@ local collapseButton = Instance.new("TextButton")
 collapseButton.Size = UDim2.new(0, 40, 0, 40)
 collapseButton.Position = UDim2.new(1, -40, 0, 0)
 collapseButton.Text = "-"
-collapseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-collapseButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+collapseButton.TextColor3 = Color3.fromRGB(255, 129, 66)
+collapseButton.BackgroundColor3 = Color3.fromRGB(91, 46, 102)
 collapseButton.Parent = mainFrame
 
 -- Sidebar (Categories)
 local sidebar = Instance.new("Frame")
 sidebar.Size = UDim2.new(0, 120, 1, -40)
 sidebar.Position = UDim2.new(0, 0, 0, 40)
-sidebar.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+sidebar.BackgroundColor3 = Color3.fromRGB(91, 46, 102)
 sidebar.Parent = mainFrame
 
 local function createCategoryButton(name, position)
@@ -49,7 +54,7 @@ local function createCategoryButton(name, position)
     button.Size = UDim2.new(1, 0, 0, 40)
     button.Position = UDim2.new(0, 0, 0, position * 40)
     button.Text = name
-    button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    button.BackgroundColor3 = Color3.fromRGB(91, 46, 102)
     button.TextColor3 = Color3.fromRGB(255, 255, 255)
     button.Parent = sidebar
     return button
@@ -64,7 +69,7 @@ local function createCategoryFrame()
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(1, -120, 1, -40)
     frame.Position = UDim2.new(0, 120, 0, 40)
-    frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    frame.BackgroundColor3 = Color3.fromRGB(91, 46, 102)
     frame.Visible = false
     frame.Parent = mainFrame
     return frame
@@ -119,7 +124,7 @@ local function createInputField(parent, placeholder, yOffset)
     box.Position = UDim2.new(0.5, -100, 0, yOffset)
     box.Text = ""
     box.PlaceholderText = placeholder
-    box.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    box.BackgroundColor3 = Color3.fromRGB(91, 46, 102)
     box.TextColor3 = Color3.fromRGB(255, 255, 255)
     box.Parent = parent
     return box
