@@ -105,7 +105,7 @@ collapseButton.MouseButton1Click:Connect(function()
         emotesFrame.Visible = true
         sidebar.Visible = true
     end
-    mainFrame.Visible = not collapsed
+  
 end)
 
 -- Player Category Features
