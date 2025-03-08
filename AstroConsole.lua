@@ -14,6 +14,12 @@ local uiCorner = Instance.new("UICorner")
 uiCorner.CornerRadius = UDim.new(0, 10)
 uiCorner.Parent = mainFrame
 
+local UIStroke = Instance.new("UIStroke")
+UIStroke.Parent = mainFrame
+UIStroke.Color = Color3.fromRGB(180, 0, 0)
+UIStroke.Thickness = 2
+
+
 -- Title Bar
 local title = Instance.new("TextLabel")
 title.Size = UDim2.new(1, 0, 0, 40)
