@@ -93,20 +93,20 @@ local collapsed = false
 collapseButton.MouseButton1Click:Connect(function()
     collapsed = not collapsed
     if collapsed then
-        -- Disable all frames except the main frame
+        -- Disable all category frames and sidebar
         playerFrame.Visible = false
         miscFrame.Visible = false
         emotesFrame.Visible = false
         sidebar.Visible = false
     else
-        -- Enable all frames
+        -- Enable all category frames and sidebar
         playerFrame.Visible = true
         miscFrame.Visible = true
         emotesFrame.Visible = true
         sidebar.Visible = true
     end
-  
 end)
+
 
 -- Player Category Features
 local function createInputField(parent, placeholder, yOffset)
