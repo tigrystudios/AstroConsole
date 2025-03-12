@@ -19,6 +19,18 @@ mainFrame.Active = true
 mainFrame.Draggable = true
 mainFrame.Parent = ScreenGui
 
+local PlayerBool = Instance.new("BoolValue")
+PlayerBool.Name = "PlayerBool"
+PlayerBool.Parent = mainFrame
+
+local MiscBool = Instance.new("BoolValue")
+MiscBool.Name = "MiscBool"
+MiscBool.Parent = mainFrame
+
+local EmoteBool = Instance.new("BoolValue")
+EmoteBool.Name = "EmoteBool"
+EmoteBool.Parent = mainFrame
+
 local UIStroke = Instance.new("UIStroke")
 UIStroke.Parent = mainFrame
 UIStroke.Color = Color3.fromRGB(60, 18, 49) -- Red outline
@@ -87,9 +99,24 @@ local function showCategory(frameToShow)
     frameToShow.Visible = true
 end
 
-playerButton.MouseButton1Click:Connect(function() showCategory(playerFrame) end)
-miscButton.MouseButton1Click:Connect(function() showCategory(miscFrame) end)
-emotesButton.MouseButton1Click:Connect(function() showCategory(emotesFrame) end)
+playerButton.MouseButton1Click:Connect(function()
+     showCategory(playerFrame) 
+     PlayerBool.Value = true
+     MiscBool.Value = false
+     EmoteBool.Value = false
+    end)
+miscButton.MouseButton1Click:Connect(function() 
+    showCategory(miscFrame) 
+    PlayerBool.Value = false
+     MiscBool.Value = true
+     EmoteBool.Value = false
+end)
+emotesButton.MouseButton1Click:Connect(function() 
+    showCategory(emotesFrame) 
+    PlayerBool.Value = false
+     MiscBool.Value = false
+     EmoteBool.Value = true
+end)
 
 showCategory(playerFrame) -- Default category
 
@@ -97,6 +124,9 @@ showCategory(playerFrame) -- Default category
 local collapsed = false
 collapseButton.MouseButton1Click:Connect(function()
     collapsed = not collapsed
+PlayerBool.Value = playerFrame.Visible
+MiscBool.Value = miscFrame.Visible
+EmoteBool.Value = emotesFrame.Visible
     if collapsed then
         -- Disable all category frames and sidebar
         playerFrame.Visible = false
@@ -107,9 +137,9 @@ collapseButton.MouseButton1Click:Connect(function()
         collapseButton.Text = "+"
     else
         -- Enable all category frames and sidebar
-        playerFrame.Visible = true
-        miscFrame.Visible = false
-        emotesFrame.Visible = false
+        playerFrame.Visible = PlayerBool.Value
+        miscFrame.Visible = MiscBool.Value
+        emotesFrame.Visible = EmoteBool.Value
         sidebar.Visible = true
         mainFrame.Size = UDim2.new(0, 400, 0, 500)
         collapseButton.Text = "-"
