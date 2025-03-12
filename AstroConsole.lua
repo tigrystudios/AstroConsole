@@ -133,7 +133,7 @@ EmoteBool.Value = emotesFrame.Visible
         miscFrame.Visible = false
         emotesFrame.Visible = false
         sidebar.Visible = false
-        mainFrame.Size = UDim2.new(0, 400, 0, 40)
+        mainFrame.Size = UDim2.new(0, 650, 0, 40)
         collapseButton.Text = "+"
     else
         -- Enable all category frames and sidebar
@@ -141,7 +141,7 @@ EmoteBool.Value = emotesFrame.Visible
         miscFrame.Visible = MiscBool.Value
         emotesFrame.Visible = EmoteBool.Value
         sidebar.Visible = true
-        mainFrame.Size = UDim2.new(0, 400, 0, 500)
+        mainFrame.Size = UDim2.new(0, 650, 0, 400)
         collapseButton.Text = "-"
     end
 end)
