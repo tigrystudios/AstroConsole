@@ -124,9 +124,7 @@ showCategory(playerFrame) -- Default category
 local collapsed = false
 collapseButton.MouseButton1Click:Connect(function()
     collapsed = not collapsed
-PlayerBool.Value = playerFrame.Visible
-MiscBool.Value = miscFrame.Visible
-EmoteBool.Value = emotesFrame.Visible
+
     if collapsed then
         -- Disable all category frames and sidebar
         playerFrame.Visible = false
