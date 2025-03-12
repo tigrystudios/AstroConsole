@@ -131,7 +131,7 @@ collapseButton.MouseButton1Click:Connect(function()
         miscFrame.Visible = false
         emotesFrame.Visible = false
         sidebar.Visible = false
-        mainFrame.Size = UDim2.new(0, 400, 0, 40)
+        mainFrame.Size = UDim2.new(0, 650, 0, 40)
         collapseButton.Text = "+"
     else
         -- Enable all category frames and sidebar
