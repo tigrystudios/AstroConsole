@@ -54,6 +54,11 @@ collapseButton.TextColor3 = Color3.fromRGB(255, 129, 66)
 collapseButton.BackgroundColor3 = Color3.fromRGB(91, 46, 102)
 collapseButton.Parent = mainFrame
 
+local MainFrameUICorner = Instance.new("UICorner")
+MainFrameUICorner.Parent = mainFrame
+MainFrameUICorner.Name = "MainFrameUICorner"
+
+
 -- Sidebar (Categories)
 local sidebar = Instance.new("Frame")
 sidebar.Size = UDim2.new(0, 120, 1, -40)
@@ -63,12 +68,15 @@ sidebar.Parent = mainFrame
 
 local function createCategoryButton(name, position)
     local button = Instance.new("TextButton")
+    local UICorner = Instance.new("UICorner")
     button.Size = UDim2.new(1, 0, 0, 40)
     button.Position = UDim2.new(0, 0, 0, position * 40)
     button.Text = name
     button.BackgroundColor3 = Color3.fromRGB(91, 46, 102)
     button.TextColor3 = Color3.fromRGB(255, 255, 255)
     button.Parent = sidebar
+    UICorner.Parent = button
+    UICorner.Name = "UICORNER"
     return button
 end
 
